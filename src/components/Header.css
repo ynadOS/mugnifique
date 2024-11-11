@@ -1,0 +1,41 @@
+/* src/components/Header.css */
+.header {
+    text-align: center;
+  }
+
+  .banner {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+  }
+  
+  .banner h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  .banner p {
+    font-size: 1.2rem;
+  }
+  
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    display: inline;
+    margin: 0 15px;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    padding-top: 30px;
+  }
+  
+  .menu a:hover {
+    text-decoration:overline ;
+    text-decoration-color: #A1C6EA; /* Couleur de l'overline */
+    text-decoration-thickness: 3px; /* Épaisseur de l'overline */
+  }
+  
