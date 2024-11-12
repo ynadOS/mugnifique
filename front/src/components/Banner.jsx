@@ -3,7 +3,7 @@ function Banner() {
 
     return (
       <>
-        <div className="hero min-h-screen" style={{backgroundImage: `url(${backgroundImage})`}}>
+        <div className="hero min-h-screen mb-20" style={{backgroundImage: `url(${backgroundImage})`}}>
             <div className="hero-content text-neutral-content  bg-[#A1C6EA] rounded-lg p-12  mx-auto md:ml-auto md:mr-8 lg:mr-24">
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
