@@ -76,6 +76,7 @@ function NavBar() {
                     </details>
                 </li> */}
                 <li><NavLink to='/contact'>Contact</NavLink></li>
+                <li><NavLink to='/admin'>Tableau de bord</NavLink></li>
                 </ul>
             </div>
 
