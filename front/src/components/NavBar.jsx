@@ -7,24 +7,24 @@ function NavBar() {
     const [totalPrice, setTotalPrice] = useState(null)
 
     useEffect(() => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || []; // Fallback to empty array if null
+
         setItems(() => {
-            let totalItems = 0
-            JSON.parse(localStorage.getItem('cart')).forEach(element => {
+            let totalItems = 0;
+            cart.forEach(element => {
                 totalItems += element.quantity;
             });
-
             return totalItems;
-        })
+        });
 
         setTotalPrice(() => {
-            let price = 0
-            JSON.parse(localStorage.getItem('cart')).forEach(element => {
+            let price = 0;
+            cart.forEach(element => {
                 price += element.price * element.quantity;
             });
-
             return price;
-        })
-    },[items])
+        });
+    }, []);
 
     return (
       <>
