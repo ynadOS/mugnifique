@@ -60,4 +60,23 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Déconnecté avec succès'], 200);
     }
+
+
+    public function index()
+    {
+        $users = User::all(); // Récupère tous les utilisateurs
+        return response()->json($users);
+    }
+
+  
+    public function show($id)
+    {
+        $user = User::find($id); // Récupère l'utilisateur par ID
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($user);
+    }
 }
