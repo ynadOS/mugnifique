@@ -13,13 +13,17 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens;
-
+    
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    
+    public function hasRole($role)
+    {
+        return $this->role === $role;  // Supposons que l'attribut 'role' existe sur votre table users
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -65,4 +69,5 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 }

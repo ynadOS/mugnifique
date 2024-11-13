@@ -1,20 +1,26 @@
-// src/App.jsx
-import React from "react";
-import Header from "./components/Header";
-import Content from "./components/Content";
-import Footer from "./components/Footer";
-import "./App.css"; // Ajouter un fichier CSS pour les styles globaux
-
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css'
+import Homepage from './page/HomePage'
+import Products from './page/PoductsPage'
+import Cartpage from './page/CartPage'
+import PaymentForm from './page/PaymentForm'
+import ContactPage from './page/ContactPage'
 
 function App() {
+
   return (
-    <div>
-      <Header />
-      <Content />
-      <Footer />
-    </div>
-  );
+    <>
+      <BrowserRouter>
+      <Routes>
+        <Route  path="/" element={<Homepage />}/>
+        <Route  path="/products" element={<Products />}/>
+        <Route  path="/cart" element={<Cartpage />}/>
+        <Route  path="/payment" element={<PaymentForm />}/>
+        <Route  path="/contact" element={<ContactPage />}/>
+      </Routes>
+      </BrowserRouter>
+    </>
+  )
 }
 
-export default App;
+export default App
