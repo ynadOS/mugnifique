@@ -5,6 +5,7 @@ import Products from './page/PoductsPage'
 import Cartpage from './page/CartPage'
 import PaymentForm from './page/PaymentForm'
 import ContactPage from './page/ContactPage'
+import AdminPage from './page/AdminPage'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route  path="/cart" element={<Cartpage />}/>
         <Route  path="/payment" element={<PaymentForm />}/>
         <Route  path="/contact" element={<ContactPage />}/>
+        <Route  path="/admin" element={<AdminPage />}/>
       </Routes>
       </BrowserRouter>
     </>
