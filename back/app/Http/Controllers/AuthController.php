@@ -17,7 +17,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed', 
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
@@ -26,11 +26,11 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        
+
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], 201);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'id' => $user->id], 201);
     }
 
     public function login(Request $request)
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer'], 200);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'id' => $user->id], 200);
     }
 
 
@@ -68,7 +68,7 @@ class AuthController extends Controller
         return response()->json($users);
     }
 
-  
+
     public function show($id)
     {
         $user = User::find($id); // Récupère l'utilisateur par ID

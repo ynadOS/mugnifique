@@ -1,30 +1,55 @@
+import axios from "axios"
 import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 function NavBar() {
 
     const [items, setItems] = useState()
     const [totalPrice, setTotalPrice] = useState(null)
+    const navigate = useNavigate();
+    const [isConnected, setIsConnected] = useState('')
+
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logout', {} , {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}` 
+            }
+        }).then(() => {
+            localStorage.removeItem('id');
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+            navigate('/')
+        })
+    }
+
+    const connexion = () => {
+        navigate('/login');
+    }
 
     useEffect(() => {
+
+        console.log(isConnected);
+        if (localStorage.getItem('token')) {
+            setIsConnected(localStorage.getItem('token'))
+        }
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
         setItems(() => {
-            let totalItems = 0
-            JSON.parse(localStorage.getItem('cart')).forEach(element => {
+            let totalItems = 0;
+            cart.forEach(element => {
                 totalItems += element.quantity;
             });
-
             return totalItems;
-        })
+        });
 
         setTotalPrice(() => {
-            let price = 0
-            JSON.parse(localStorage.getItem('cart')).forEach(element => {
+            let price = 0;
+            cart.forEach(element => {
                 price += element.price * element.quantity;
             });
-
             return price;
-        })
-    },[items])
+        });
+    }, []);
 
     return (
       <>
@@ -48,15 +73,10 @@ function NavBar() {
                 <ul
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                    <li><a>Item 1</a></li>
-                    <li>
-                    <a>Parent</a>
-                    <ul className="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                    </li>
-                    <li><a>Item 3</a></li>
+                    <li><NavLink to='/'>Accueil</NavLink></li>
+                    <li><NavLink to='/products'>Produits</NavLink></li>
+                    <li><NavLink to='/contact'>Contact</NavLink></li>
+                    <li><NavLink to='/admin'>Tableau de bord</NavLink></li>
                 </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">Mugnifique</a>
@@ -66,15 +86,6 @@ function NavBar() {
                 <ul className="menu menu-horizontal px-1">
                 <li><NavLink to='/'>Accueil</NavLink></li>
                 <li><NavLink to='/products'>Produits</NavLink></li>
-                {/* <li>
-                    <details>
-                    <summary>Parent</summary>
-                    <ul className="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                    </details>
-                </li> */}
                 <li><NavLink to='/contact'>Contact</NavLink></li>
                 <li><NavLink to='/admin'>Tableau de bord</NavLink></li>
                 </ul>
@@ -111,7 +122,9 @@ function NavBar() {
                     </div>
                 </div>
                 </div>
-                <div className="dropdown dropdown-end">
+                { isConnected ?
+
+                    <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
                     <img
@@ -125,14 +138,15 @@ function NavBar() {
                     <li>
                     <a className="justify-between">
                         Profile
-                        <span className="badge">New</span>
                     </a>
                     </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
+                    <li><a onClick={() => logout()}>Logout</a></li>
                 </ul>
 
                 </div>
+                :
+                <button onClick={() => connexion()} >Connexion</button>
+                }
             </div>
         </div>
       </>
