@@ -28,7 +28,7 @@ function ProductSheet({ product }) {
               <div className=" rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
                 <img
                   className="w-full  object-cover"
-                  src={product.img}
+                  src={product.img ? product.img : '../public/img/mug-6345793_640.jpg'}
                   alt={product.name}
                 />
               </div>
@@ -55,7 +55,7 @@ function ProductSheet({ product }) {
                 </div>
                 <div>
                   <span className="font-bold text-gray-700 dark:text-gray-300">Stock : </span>
-                  <span className="text-gray-600 dark:text-gray-300">{product.availability}</span>
+                  <span className="text-gray-600 dark:text-gray-300">{product.stock}</span>
                 </div>
               </div>
              
